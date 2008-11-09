@@ -7,7 +7,7 @@ License:        GPLv2+
 Group:          Graphical desktop/KDE
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source0:        84465-previewer.tar.bz2
-BuildRequires:  kdebase4-workspace-devel
+BuildRequires:  plasma-devel
 
 %description
 Just a simple previewer applet which uses KPart to preview the files you drop on.
@@ -27,8 +27,8 @@ Just a simple previewer applet which uses KPart to preview the files you drop on
 %make
 
 %install
-cd build
-make DESTDIR=%buildroot install
+rm -fr %buildroot
+%makeinstall_std -C build
 
 %clean
 %{__rm} -rf "%{buildroot}"
