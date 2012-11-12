@@ -1,0 +1,66 @@
+--- previewer/CMakeLists.txt~	2008-07-04 20:38:29.000000000 +0200
++++ previewer/CMakeLists.txt	2009-01-10 21:54:47.000000000 +0100
+@@ -4,7 +4,6 @@
+ # Find the required Libaries
+ find_package(KDE4 REQUIRED)
+ include(KDE4Defaults)
+-find_package(Plasma REQUIRED)
+  
+ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+ include_directories(
+@@ -19,10 +18,10 @@
+ # Now make sure all files get to the right place
+ kde4_add_plugin(plasma_applet_previewer ${previewer_SRCS})
+ target_link_libraries(plasma_applet_previewer
+-                      ${PLASMA_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS})
+- 
++                      ${PLASMA_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_PLASMA_LIBS})
++
+ install(TARGETS plasma_applet_previewer
+         DESTINATION ${PLUGIN_INSTALL_DIR})
+  
+ install(FILES plasma-applet-previewer.desktop
+-        DESTINATION ${SERVICES_INSTALL_DIR})
+\ No newline at end of file
++        DESTINATION ${SERVICES_INSTALL_DIR})
+--- previewer/plasma-previewer.h~	2008-07-04 20:38:29.000000000 +0200
++++ previewer/plasma-previewer.h	2009-01-10 22:01:47.000000000 +0100
+@@ -59,7 +59,7 @@
+       void init();
+ 
+     private:
+-       Plasma::Icon *m_icon;
++       Plasma::IconWidget *m_icon;
+        QToolButton *close_i;
+        QWidget *base;
+        KMenu *m_menu;
+--- previewer/plasma-previewer.cpp.orig	2009-01-10 21:59:01.000000000 +0100
++++ previewer/plasma-previewer.cpp	2009-01-10 21:58:05.000000000 +0100
+@@ -48,7 +48,7 @@
+ #include <KPushButton>
+ 
+ // Plasma
+-#include <plasma/widgets/icon.h>
++#include <Plasma/IconWidget>
+ #include <plasma/widgets/label.h>
+ #include <plasma/dialog.h>
+ 
+@@ -115,7 +115,7 @@
+ 
+   setLayout(lay);
+ 
+-  m_icon = new Plasma::Icon(KIcon("document-preview"), i18n("Preview"), this);
++  m_icon = new Plasma::IconWidget(KIcon("document-preview"), i18n("Preview"), this);
+   m_icon->setNumDisplayLines(2);
+   m_icon->setDrawBackground(true);
+   lay->addItem(m_icon);
+--- previewer/plasma-previewer.h~	2009-01-10 22:02:46.000000000 +0100
++++ previewer/plasma-previewer.h	2009-01-10 22:07:33.000000000 +0100
+@@ -25,6 +25,7 @@
+ 
+ #include <Plasma/Applet>
+ #include <Plasma/Svg>
++#include <Plasma/IconWidget>
+ 
+ namespace Plasma{
+   class Icon;
