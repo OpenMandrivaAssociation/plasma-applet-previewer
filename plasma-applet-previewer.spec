@@ -8,6 +8,7 @@ Group:          Graphical desktop/KDE
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Source0:        84465-previewer.tar.bz2
 Patch0:         previewer-fix-cmake.patch
+BuildRequires:	make
 BuildRequires:  plasma-devel
 
 %description
